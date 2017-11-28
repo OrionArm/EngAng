@@ -1,0 +1,25 @@
+mat-card > *{
+  min-width: 150px;
+  width: 100%;
+}
+
+.sigin-header {
+  text-align: center;
+}
+
+form {
+  min-width: 150px;
+  display: flex;
+  flex-direction: column;
+
+  .sigin-form {
+    width: 100%;
+    > * {
+      width: 100%;
+    }
+  }
+}
+
+[matSuffix] {
+  cursor: pointer;
+}
