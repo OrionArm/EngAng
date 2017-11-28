@@ -2,17 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
-import {
-  MatButtonModule,
-  MatCheckboxModule,
-  MatToolbarModule,
-  MatSidenavModule,
-  MatGridListModule,
-  MatCardModule,
-  MatIconModule,
-  MatFormFieldModule,
-  MatInputModule
-} from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
@@ -25,6 +14,7 @@ import {UserService} from './services/user.service';
 import {AuthGuard} from './guards/guards.guard';
 import {AuthenticationService} from './services/authentication.service';
 import {ReactiveFormsModule} from '@angular/forms';
+import {AppMaterialModule} from './material-module/app-material.module';
 
 
 @NgModule({
@@ -40,15 +30,7 @@ import {ReactiveFormsModule} from '@angular/forms';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     Routing,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatGridListModule,
-    MatCardModule,
-    MatIconModule,
-    MatFormFieldModule,
-    MatInputModule
+    AppMaterialModule
   ],
   providers: [
     UserService,
