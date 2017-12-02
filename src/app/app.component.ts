@@ -12,12 +12,4 @@ export class AppComponent {
   private url = environment.api;
 
   constructor(private http: HttpClient) {}
-
-  public getProducts() {
-
-    this.http.get(this.url).subscribe((res) => {
-      console.log(res);
-    });
-
-  }
 }

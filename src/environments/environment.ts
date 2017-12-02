@@ -6,7 +6,8 @@
 export const environment = {
   production: false,
   api: 'http://localhost:8000/',
-  authApi: 'http://localhost:8000/auth',
+  tokenAuth: 'http://localhost:8000/api-token-auth/',
+  registrationUrl: 'http://localhost:8000/api-token-auth/',
   users: 'http://localhost:8000/users',
   fbhost: 'https://mind-app-1e5eb.firebaseio.com/',
   OauthLoginEndPointUrl: 'https://oauth.vk.com/authorize',

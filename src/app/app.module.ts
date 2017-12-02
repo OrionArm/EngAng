@@ -5,6 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
+import {AppMaterialModule} from './material-module/app-material.module';
 import { AppComponent } from './app.component';
 import { Routing } from './app.routing';
 import { HeaderComponent } from './header/header.component';
@@ -14,7 +15,7 @@ import {UserService} from './services/user.service';
 import {AuthGuard} from './guards/guards.guard';
 import {AuthenticationService} from './services/authentication.service';
 import {ReactiveFormsModule} from '@angular/forms';
-import {AppMaterialModule} from './material-module/app-material.module';
+import { RegistrationComponent } from './registration/registration.component';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {AppMaterialModule} from './material-module/app-material.module';
     AppComponent,
     HeaderComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    RegistrationComponent
   ],
   imports: [
     BrowserModule,

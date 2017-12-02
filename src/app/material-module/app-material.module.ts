@@ -8,6 +8,7 @@ import {
   MatGridListModule,
   MatIconModule,
   MatInputModule,
+  MatProgressSpinnerModule,
   MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
@@ -23,7 +24,8 @@ import {
     MatCardModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
   ],
   declarations: [],
   exports: [
@@ -35,7 +37,8 @@ import {
     MatCardModule,
     MatIconModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatProgressSpinnerModule
   ]
 })
 export class AppMaterialModule { }

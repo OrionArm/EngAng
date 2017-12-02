@@ -12,9 +12,13 @@ export class HomeComponent implements OnInit {
 
   users: User[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService) {
+  }
 
   ngOnInit() {
+  }
+
+  getUsers() {
     // get users from secure api end point
     this.userService.getUsers()
       .subscribe(users => {

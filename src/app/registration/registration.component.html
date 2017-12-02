@@ -1,0 +1,71 @@
+<mat-card>
+  <div class="sigin-header">
+    <h2>SigUp</h2>
+  </div>
+  <form [formGroup]="sigUpForm" (ngSubmit)="registration()">
+    <mat-form-field class="sigin-form">
+      <input matInput
+             type="name"
+             placeholder="Enter your name"
+             formControlName="nameFormControl"
+      >
+      <mat-error
+        *ngIf="sigUpForm.get('nameFormControl').hasError('required') &&
+        sigUpForm.get('nameFormControl').touched"
+      >Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="sigin-form">
+      <input matInput
+             type="email"
+             placeholder="Email"
+             formControlName="emailFormControl"
+      >
+      <mat-error
+        *ngIf="sigUpForm.hasError('pattern', 'emailFormControl')"
+      >Please enter a valid email address
+      </mat-error>
+      <mat-error
+        *ngIf="sigUpForm.get('emailFormControl').hasError('required') &&
+        sigUpForm.get('emailFormControl').touched"
+      >Email is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="sigin-form">
+      <input matInput
+             placeholder="Enter your password"
+             [type]="hidepassword ? 'password' : 'text'"
+             formControlName="passwordFormControl"
+      >
+      <mat-icon matSuffix
+                (click)="hidepassword = !hidepassword"
+      >{{hidepassword ? 'visibility' : 'visibility_off'}}
+      </mat-icon>
+      <md-hint *ngIf="sigUpForm.get('passwordFormControl').hasError('minLength')"
+               [ngStyle]="{'color': 'red'}">
+        <span>Password should be not less than 6 </span>
+      </md-hint>
+    </mat-form-field>
+    <mat-form-field class="sigin-form">
+      <input matInput
+             placeholder="Enter your password again"
+             [type]="hidepassword ? 'password' : 'text'"
+             formControlName="password2FormControl"
+      >
+      <mat-icon matSuffix
+                (click)="hidepassword = !hidepassword"
+      >{{hidepassword ? 'visibility' : 'visibility_off'}}
+      </mat-icon>
+      <md-hint *ngIf="sigUpForm.get('password2FormControl').hasError('minLength')"
+               [ngStyle]="{'color': 'red'}">
+        <span>Password should be not less than 6 </span>
+      </md-hint>
+    </mat-form-field>
+    <br/>
+    <button mat-raised-button color="primary">
+      <!--[disabled]="sigInForm.invalid"-->
+      SignUp</button>
+  </form>
+
+</mat-card>
+
