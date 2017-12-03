@@ -2,6 +2,8 @@ import {Component, OnInit, ViewEncapsulation} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../services/authentication.service';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {environment} from '../../environments/environment';
+import {Config} from '../_models/config';
 
 
 @Component({
@@ -17,10 +19,12 @@ export class LoginComponent implements OnInit {
   private submitting: boolean;
   private sigInForm: FormGroup;
   private hidepassword: Boolean = true;
-  private redirectUrl = '/signin/ok';
+  private redirectUrl = environment.loginsuccess;
+
   constructor(private router: Router,
               private fb: FormBuilder,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService,
+              private config: Config) {
     this.createForm();
   }
 
@@ -53,7 +57,6 @@ export class LoginComponent implements OnInit {
           this.sigInForm.patchValue({'passwordFormControl': ''});
           this._handleSubmitError(e);
         });
-
   }
 
   private _handleSubmitSuccess() {
@@ -68,9 +71,9 @@ export class LoginComponent implements OnInit {
       .setErrors({serverError: {incorrectData: autherror}});
     this.sigInForm.get('passwordFormControl')
       .setErrors({serverError: {incorrectData: autherror}});
-    this.errorMessage = 'Username or password is incorrect';
+    this.errorMessage = this.config.errorMessages.authenticated;
     this.submitting = false;
     this.loading = false;
-    console.log('server error', autherror);
+    console.error('server error', autherror);
   }
 }

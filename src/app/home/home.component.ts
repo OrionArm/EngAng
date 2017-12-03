@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {User} from '../_models/user';
+import {UserModel} from '../_models/user';
 import {UserService} from '../services/user.service';
 
 @Component({
@@ -10,7 +10,7 @@ import {UserService} from '../services/user.service';
 })
 export class HomeComponent implements OnInit {
 
-  users: User[] = [];
+  users: UserModel[] = [];
 
   constructor(private userService: UserService) {
   }

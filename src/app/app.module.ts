@@ -16,6 +16,7 @@ import {AuthGuard} from './guards/guards.guard';
 import {AuthenticationService} from './services/authentication.service';
 import {ReactiveFormsModule} from '@angular/forms';
 import { RegistrationComponent } from './registration/registration.component';
+import {Config} from './_models/config';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { RegistrationComponent } from './registration/registration.component';
     AppMaterialModule
   ],
   providers: [
+    Config,
     UserService,
     AuthGuard,
     AuthenticationService,

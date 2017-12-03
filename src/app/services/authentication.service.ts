@@ -3,16 +3,21 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import {environment} from '../../environments/environment';
+import {UserCache, UserModel} from '../_models/user';
+import {Config} from '../_models/config';
 
 @Injectable()
 export class AuthenticationService {
   // public token: string = null;
   public token: any;
+  private userCache: UserCache;
   private sigIpUrl = environment.tokenAuth;
   private sigUpUrl = environment.registrationUrl;
+  private storageName: string = `${this.config.appName}:account`;
 
-  constructor(public http: HttpClient) {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+  constructor(private http: HttpClient,
+              private config: Config) {
+    const currentUser = JSON.parse(localStorage.getItem(this.storageName));
     this.token = currentUser && currentUser.token;
   }
 
@@ -34,7 +39,6 @@ export class AuthenticationService {
         localStorage.setItem('currentUser', JSON.stringify({
           username: userData.username, token: token
         }));
-
         // return true to indicate successful login
         return true;
       }
@@ -66,11 +70,18 @@ export class AuthenticationService {
         localStorage.setItem('currentUser', JSON.stringify({
           username: userData.username, token: token
         }));
-
         // return true to indicate successful login
         return true;
       }
       return false;
     });
+  }
+
+  public getToken(): string {
+    return this.userCache && this.userCache.token;
+  }
+
+  public getCurrentUser(): UserModel {
+    return this.userCache && this.userCache.user;
   }
 }
