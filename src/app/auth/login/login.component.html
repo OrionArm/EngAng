@@ -1,0 +1,43 @@
+<mat-card>
+  <div class="signin-header">
+    <h2>Signin</h2>
+  </div>
+  <form [formGroup]="signinForm" (ngSubmit)="login()">
+    <mat-error *ngIf="errorMessage"
+    ><i class="material-icons">error</i> {{errorMessage}}</mat-error>
+    <br>
+    <mat-form-field class="signin-form">
+      <input matInput
+             type="email"
+             placeholder="Enter your email"
+             formControlName="emailFormControl"
+      >
+      <mat-error
+        *ngIf="signinForm.get('emailFormControl').hasError('required') &&
+        signinForm.get('emailFormControl').touched"
+      >Name is <strong>required</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field class="signin-form">
+      <input matInput
+             placeholder="Enter your password"
+             [type]="hidepassword ? 'password' : 'text'"
+             formControlName="passwordFormControl"
+      >
+      <mat-icon matSuffix
+                (click)="hidepassword = !hidepassword"
+      >{{hidepassword ? 'visibility' : 'visibility_off'}}
+      </mat-icon>
+      <md-hint *ngIf="signinForm.get('passwordFormControl').hasError('minLength')"
+               [ngStyle]="{'color': 'red'}">
+        <span>Password should be not less than 6 </span>
+      </md-hint>
+    </mat-form-field>
+    <br/>
+    <button mat-raised-button color="primary"
+            [disabled]="signinForm.invalid">
+    Log in</button>
+  </form>
+
+</mat-card>
+

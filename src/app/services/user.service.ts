@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {UserModel} from '../_models/user';
 import {Observable} from 'rxjs/Observable';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {AuthenticationService} from './authentication.service';
+import {AuthenticationService} from '../auth/authentication.service';
 import {environment} from '../../environments/environment';
 
 @Injectable()

@@ -1,13 +1,22 @@
-
-export interface UserData {
+export class UserAuthRequest {
   username: string;
+  email: string;
   password: string;
+  address?: Array<string>;
+  confirm_password: string;
+  constructor(userForm) {
+    this.username = userForm.username;
+    this.email = userForm.email;
+    this.password = userForm.password;
+    this.confirm_password = userForm.confirm_password;
+    this.address = userForm.address;
+  }
 }
 
 export class UserModel {
   public id: number;
   public email: string;
-  public nickName: string;
+  public username: string;
   public firstName: string;
   public lastName: string;
   public rating: string;
@@ -23,13 +32,13 @@ export class UserModel {
     user.id = json.id;
     user.firstName = json.firstName;
     user.lastName = json.lastName;
-    user.nickName = json.nickName;
+    user.username = json.username;
     user.email = json.email;
-    user.image = json.image;
-    user.rating = json.rating;
-    user.status = json.status;
+    user.image = json.image || null;
+    user.rating = json.rating || null;
+    user.status = json.status || null;
 
-    user.phoneNumber = json.phoneNumber;
+    user.phoneNumber = json.phoneNumber || null;
 
     user.pushNotificationId = json.pushNotificationId;
 
@@ -38,7 +47,7 @@ export class UserModel {
 }
 
 export class UserCache {
-  public token: string;
+  public token: any;
   public refreshToken: string;
   public user: UserModel;
 }

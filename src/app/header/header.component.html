@@ -1,14 +1,14 @@
 <mat-toolbar color="primary">
 <mat-toolbar-row>
-  <span>Second Line</span>
+  <span>Client</span>
   <span class="example-spacer"></span>
-  <button mat-button routerLink="signin">
+  <button *ngIf="!auth.isLoggedIn()" mat-button routerLink="signin">
     <i class="material-icons">perm_identity</i>Sign In
   </button>
-  <button mat-button routerLink="signup">
+  <button *ngIf="!auth.isLoggedIn()" mat-button routerLink="signup">
     <i class="material-icons">assignment</i>Sign Up
   </button>
-  <button mat-button routerLink="signout">
+  <button *ngIf="auth.isLoggedIn()" mat-button routerLink="signout" (click)="logout()">
     <i class="material-icons">exit_to_app</i>Sign Out
   </button>
 

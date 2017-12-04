@@ -1,37 +1,44 @@
 <mat-card>
-  <div class="sigin-header">
-    <h2>SigUp</h2>
+  <div class="signin-header">
+    <h2>Register</h2>
   </div>
-  <form [formGroup]="sigUpForm" (ngSubmit)="registration()">
-    <mat-form-field class="sigin-form">
+  <form [formGroup]="signUpForm" (ngSubmit)="registration()">
+    <mat-error *ngIf="errorMessage"
+    ><i class="material-icons">error</i> {{errorMessage}}</mat-error>
+    <br>
+
+    <mat-form-field class="signin-form">
       <input matInput
              type="name"
              placeholder="Enter your name"
              formControlName="nameFormControl"
       >
       <mat-error
-        *ngIf="sigUpForm.get('nameFormControl').hasError('required') &&
-        sigUpForm.get('nameFormControl').touched"
+        *ngIf="signUpForm.get('nameFormControl').hasError('required') &&
+        signUpForm.get('nameFormControl').touched"
       >Name is <strong>required</strong>
       </mat-error>
     </mat-form-field>
-    <mat-form-field class="sigin-form">
+
+    <mat-form-field class="signin-form">
       <input matInput
              type="email"
              placeholder="Email"
              formControlName="emailFormControl"
       >
       <mat-error
-        *ngIf="sigUpForm.hasError('pattern', 'emailFormControl')"
+        *ngIf="signUpForm.hasError('pattern', 'emailFormControl')"
       >Please enter a valid email address
       </mat-error>
       <mat-error
-        *ngIf="sigUpForm.get('emailFormControl').hasError('required') &&
-        sigUpForm.get('emailFormControl').touched"
+        *ngIf="signUpForm.get('emailFormControl').hasError('required') &&
+        signUpForm.get('emailFormControl').touched"
       >Email is <strong>required</strong>
       </mat-error>
     </mat-form-field>
-    <mat-form-field class="sigin-form">
+
+    <mat-form-field class="signin-form">
+
       <input matInput
              placeholder="Enter your password"
              [type]="hidepassword ? 'password' : 'text'"
@@ -41,29 +48,33 @@
                 (click)="hidepassword = !hidepassword"
       >{{hidepassword ? 'visibility' : 'visibility_off'}}
       </mat-icon>
-      <md-hint *ngIf="sigUpForm.get('passwordFormControl').hasError('minLength')"
+      <md-hint *ngIf="signUpForm.get('passwordFormControl').hasError('minLength')"
                [ngStyle]="{'color': 'red'}">
-        <span>Password should be not less than 6 </span>
+        <span>Password should be not less than 6 symbols</span>
       </md-hint>
     </mat-form-field>
-    <mat-form-field class="sigin-form">
+
+    <mat-form-field class="signin-form">
       <input matInput
              placeholder="Enter your password again"
              [type]="hidepassword ? 'password' : 'text'"
-             formControlName="password2FormControl"
+             formControlName="passwordFormControl2"
       >
       <mat-icon matSuffix
                 (click)="hidepassword = !hidepassword"
       >{{hidepassword ? 'visibility' : 'visibility_off'}}
       </mat-icon>
-      <md-hint *ngIf="sigUpForm.get('password2FormControl').hasError('minLength')"
+      <md-hint *ngIf="signUpForm.get('passwordFormControl2').hasError('minLength')"
                [ngStyle]="{'color': 'red'}">
-        <span>Password should be not less than 6 </span>
+        <span>Password should be not less than 6 symbols</span>
       </md-hint>
     </mat-form-field>
+
+    <!--TODO add output error if password not confirm -->
     <br/>
-    <button mat-raised-button color="primary">
-      <!--[disabled]="sigInForm.invalid"-->
+
+    <button mat-raised-button color="primary"
+      [disabled]="signUpForm.invalid">
       SignUp</button>
   </form>
 
