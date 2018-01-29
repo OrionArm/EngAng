@@ -6,18 +6,22 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 import {AppMaterialModule} from './material-module/app-material.module';
-import { AppComponent } from './app.component';
-import { Routing } from './app.routing';
-import { HeaderComponent } from './header/header.component';
-import { LoginComponent } from './auth/login/login.component';
-import { HomeComponent } from './home/home.component';
+import {AppComponent} from './app.component';
+import {Routing} from './app.routing';
+import {HeaderComponent} from './header/header.component';
+import {LoginComponent} from './auth/login/login.component';
+import {HomeComponent} from './home/home.component';
 import {UserService} from './services/user.service';
 import {AuthGuard} from './guards/guards.guard';
 import {AuthenticationService} from './auth/authentication.service';
-import {ReactiveFormsModule} from '@angular/forms';
-import { RegistrationComponent } from './auth/registration/registration.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { RegistrationComponent} from './auth/registration/registration.component';
 import {Config} from './_models/config';
 import {HttpService} from './services/http.service';
+import {WordSaverComponent} from './page/wordSaver/wordSaver';
+import {DictionaryService} from './services/dictionary.service';
+import {TestComponent} from './page/test/test';
+import { DictionaryComponent } from './page/dictionary/dictionary.component';
 
 
 @NgModule({
@@ -26,7 +30,10 @@ import {HttpService} from './services/http.service';
     HeaderComponent,
     LoginComponent,
     HomeComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    WordSaverComponent,
+    TestComponent,
+    DictionaryComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +41,8 @@ import {HttpService} from './services/http.service';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     Routing,
-    AppMaterialModule
+    AppMaterialModule,
+    FormsModule
   ],
   providers: [
     Config,
@@ -42,6 +50,7 @@ import {HttpService} from './services/http.service';
     AuthGuard,
     AuthenticationService,
     HttpService,
+    DictionaryService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,40 @@
+<h2>Welcome to EngWord!</h2>
+<mat-card>
+  <form [formGroup]="orderForm">
+    <div>
+      <p>Type the word and the translation</p>
+
+      <mat-form-field>
+        <input
+          placeholder="Word" type="text"
+          matInput formControlName="word">
+      </mat-form-field>
+      <!--<mat-error-->
+      <!--*ngIf="(alreadySubmitted || orderForm.get('word').touched) && orderForm.get('word').hasError('required')">-->
+      <!--<span>Please enter word </span>-->
+      <!--</mat-error>-->
+
+      <mat-form-field>
+        <input matInput formControlName="translate" type="text" placeholder="Translate">
+      </mat-form-field>
+
+      <div formArrayName="additionalTranslate"
+           *ngFor="let item of orderForm.get('additionalTranslate').controls; let i = index;">
+
+        <mat-form-field>
+          <input matInput [formControlName]="i" type="text" placeholder="Translate {{i+2}}">
+          <mat-icon matSuffix (click)="removeTranslate(item)">clear</mat-icon>
+        </mat-form-field>
+
+      </div>
+
+    </div>
+    <button mat-button color="light" (tap)="addTranslate()">Add translate</button>
+
+    <button mat-raised-button block color="primary"
+            (click)="saveWord()" type="submit"
+            [disabled]="orderForm.invalid">Save word</button>
+  </form>
+
+
+</mat-card>>

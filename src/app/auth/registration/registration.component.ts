@@ -45,7 +45,7 @@ export class RegistrationComponent implements OnInit {
       'passwordFormControl': ['', [ Validators.required, Validators.minLength(6)]],
       'passwordFormControl2': ['', [ Validators.required, Validators.minLength(6)]]
 
-    }, {updateOn: 'blur', validator: this._passwordConfirming});
+    }, {updateOn: 'blur'});
   }
 
   registration(): void {

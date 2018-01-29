@@ -7,8 +7,10 @@ import {
   MatFormFieldModule,
   MatGridListModule,
   MatIconModule,
-  MatInputModule,
+  MatInputModule, MatListModule,
   MatProgressSpinnerModule,
+  MatRadioModule,
+  MatSelectModule,
   MatSidenavModule,
   MatToolbarModule
 } from '@angular/material';
@@ -25,7 +27,12 @@ import {
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatListModule
+
+
   ],
   declarations: [],
   exports: [
@@ -38,7 +45,32 @@ import {
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatListModule
   ]
 })
 export class AppMaterialModule { }
+
+//
+//   CdkTableModule,
+//   MatAutocompleteModule,
+//   MatButtonToggleModule,
+//   MatChipsModule,
+//   MatStepperModule,
+//   MatDatepickerModule,
+//   MatDialogModule,
+//   MatExpansionModule,
+//   MatMenuModule,
+//   MatNativeDateModule,
+//   MatPaginatorModule,
+//   MatProgressBarModule,
+//   MatRippleModule,
+//   MatSliderModule,
+//   MatSlideToggleModule,
+//   MatSnackBarModule,
+//   MatSortModule,
+//   MatTableModule,
+//   MatTabsModule,
+//   MatTooltipModule,

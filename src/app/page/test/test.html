@@ -1,0 +1,10 @@
+<mat-card>
+    <mat-radio-group [(ngModel)]="translate">
+      <mat-radio-button *ngFor="let word of translateWords" [value]="word">
+        {{word}}
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <mat-divider></mat-divider>
+    <div>Your pick: {{translate}}</div>
+</mat-card>
