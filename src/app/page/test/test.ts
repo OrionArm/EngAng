@@ -1,5 +1,9 @@
-import {Component} from '@angular/core';
-import {TestService} from '../../services/test-services';
+import {Component, OnInit} from '@angular/core';
+import {TestService, Answer} from '../../services/test-services';
+import {DataWordType} from '../../services/dictionary.service';
+import * as firebase from 'firebase/app';
+import DocumentReference = firebase.firestore.DocumentReference;
+
 
 @Component({
   selector: 'app-test',
@@ -7,69 +11,43 @@ import {TestService} from '../../services/test-services';
   styleUrls: ['./test.scss'],
 
 })
-export class TestComponent {
-  public translate: string;
-  public translateWords = ['яблоко', 'рука', 'нога'];
-
-  private _testLevel: number = 0;
-  public totalLevel: number = 20;
-  public task;
-  public word;
-  public answerWord;
-  constructor(public testService: TestService) {}
-
-  get testLevel() {
-    return this._testLevel;
+export class TestComponent implements OnInit {
+  public totalLevel: number;
+  public task: DataWordType;
+  public answerWord: string;
+  public getTask;
+  public level: number;
+  constructor(public testService: TestService) {
+    this.totalLevel = this.testService.totalLevel;
   }
 
+  ngOnInit() {
+    this.getTask = () => this.testService.getTask(6);
+  }
+
+  get testLevel() {
+    this.level = this.testService.testLevel;
+     return this.level;
+  }
+
+
   nextLevel() {
-    // this.task = this.testService.getRandomWords(1);
-
-    ++this._testLevel;
-    this.testService.getTask(6);
-    console.log('this.word', this.word);
-    console.log('this.translate', this.translate);
-    console.log('this.answerWord', this.answerWord);
-
-
+    this.saveAnswer();
+    this.getAnswer();
   }
 
   getAnswer() {
-    this.testService.getTask(6).subscribe( data => console.log('subs', data) );
+    return this.getTask().subscribe( data => this.task = data );
   }
 
   startTest() {
-    this.nextLevel();
-    this.testService.getTask(6);
-
+    this.getAnswer();
+    this.testService.startTest();
   }
 
-  saveAnswer() {
-
+  saveAnswer(): Promise<DocumentReference> | Promise<boolean> {
+    return this.testService.checkAnswer(this.answerWord);
   }
 
-  folders = [
-    {
-      name: 'Photos',
-      updated: new Date('1/1/16'),
-    },
-    {
-      name: 'Recipes',
-      updated: new Date('1/17/16'),
-    },
-    {
-      name: 'Work',
-      updated: new Date('1/28/16'),
-    }
-  ];
-  notes = [
-    {
-      name: 'Vacation Itinerary',
-      updated: new Date('2/20/16'),
-    },
-    {
-      name: 'Kitchen Remodel',
-      updated: new Date('1/18/16'),
-    }
-  ];
+
 }

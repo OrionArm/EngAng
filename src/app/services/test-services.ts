@@ -1,19 +1,43 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import * as Rx from 'rxjs/Rx';
 import {Observable} from 'rxjs/Observable';
 import {DataWordType, DictionaryService} from './dictionary.service';
+import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
+import * as firebase from 'firebase/app';
+import DocumentReference = firebase.firestore.DocumentReference;
+import {Router} from '@angular/router';
+
+interface IAnswer {
+  word: string;
+  answer: string;
+  level: number;
+  complete?: boolean;
+}
+
+export class Answer {
+  constructor(public word: string,
+              public answer: string,
+              public level: number,
+              public complete?: boolean) {}
+}
+
 
 @Injectable()
 export class TestService {
   private taskObj = {
-    subject : '',
+    subject: '',
     answer: '',
     variant: []
   };
-
+  private _testLevel: number = 0;
+  public totalLevel: number = 2;
   dictionary: Observable<DataWordType[]>;
+  questionnaireCollect: AngularFirestoreCollection<IAnswer>;
 
-  constructor(public dictionaryService: DictionaryService) {
+  constructor(public dictionaryService: DictionaryService,
+              private afs: AngularFirestore,
+              private router: Router) {
+    this.questionnaireCollect = this.afs.collection('questionnaire');
   }
 
   static randomIndex = (array) => Math.floor(Math.random() * array.length);
@@ -25,6 +49,20 @@ export class TestService {
     delete item.id;
     return item;
   });
+
+
+  get testLevel() {
+    return this._testLevel;
+  }
+
+  startTest() {
+    this._testLevel = 1;
+  }
+
+  finishTest() {
+    const promise = Promise.resolve(this.router.navigate(['test/results']));
+    return promise;
+  }
 
   getRandomWords(countWords: number): Observable<DataWordType> {
     this.dictionary = this.dictionaryService.getDict();
@@ -70,7 +108,7 @@ export class TestService {
 
     const task = wordData.mergeMap(
       wordAndAnswer => {
-        return variant.map( othersVariant => {
+        return variant.map(othersVariant => {
           const cleanVariants = othersVariant.filter(e => e !== wordAndAnswer.answerWord);
           cleanVariants.push(wordAndAnswer.answerWord);
           if (cleanVariants.length > countVariant) {
@@ -81,19 +119,33 @@ export class TestService {
           this.taskObj.subject = wordAndAnswer.word;
           this.taskObj.answer = wordAndAnswer.answerWord;
           this.taskObj.variant = cleanVariants;
-          return { word: wordAndAnswer.word, translateWords: cleanVariants };
+          return {word: wordAndAnswer.word, translateWords: cleanVariants};
         });
       });
     return task;
   }
 
-  checkAnswer(answer): boolean {
-    if (answer == this.taskObj.answer ) {
-      return true;
+  checkAnswer(translate: string): Promise<DocumentReference> | Promise<boolean> {
+    if (this._testLevel < this.totalLevel) {
+      ++this._testLevel;
+      if (translate === this.taskObj.answer) {
+        const answer = new Answer(this.taskObj.subject, translate, this._testLevel, true);
+        return this.saveAnswer(answer);
+      } else {
+        const answer = new Answer(this.taskObj.subject, translate, this._testLevel, false);
+        return this.saveAnswer(answer);
+      }
     }
-    return false;
+    return this.finishTest();
   }
 
+  saveAnswer(answer: Answer): Promise<DocumentReference> {
+    return this.questionnaireCollect.add({...answer});
+  }
+
+  getQuestionnaire(): Observable<any> {
+    return this.questionnaireCollect.valueChanges();
+  }
 
 }
 

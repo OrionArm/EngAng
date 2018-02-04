@@ -11,7 +11,7 @@ export interface DataWordType {
 }
 
 @Injectable()
-export class DictionaryService implements OnInit {
+export class DictionaryService {
 
   private DictionaryCollection: AngularFirestoreCollection<DataWordType>;
   notes: Observable<DataWordType[]>;
@@ -21,12 +21,8 @@ export class DictionaryService implements OnInit {
 
   }
 
-  ngOnInit() {
-    this.getDict();
-  }
-
   getDict(): Observable<DataWordType[]> {
-    this.DictionaryCollection = this.afs.collection('dictionary', ref => {
+    this.DictionaryCollection = this.afs.collection<DataWordType>('dictionary', ref => {
       return ref.orderBy('word');
     });
     this.notes = this.DictionaryCollection.valueChanges();

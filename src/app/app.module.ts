@@ -27,6 +27,7 @@ import {AngularFirestoreModule} from 'angularfire2/firestore';
 import {AngularFireModule} from 'angularfire2';
 import { WordDictionaryComponent } from './page/dictionary/word-dictionary.component';
 import {TestService} from './services/test-services';
+import { TestResultComponent } from './page/test/test-result.component';
 
 
 @NgModule({
@@ -40,6 +41,7 @@ import {TestService} from './services/test-services';
     TestComponent,
     DictionaryComponent,
     WordDictionaryComponent,
+    TestResultComponent,
   ],
   imports: [
     BrowserModule,

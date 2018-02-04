@@ -7,6 +7,7 @@ import {RegistrationComponent} from './auth/registration/registration.component'
 import {WordSaverComponent} from './page/wordSaver/wordSaver';
 import {TestComponent} from './page/test/test';
 import {DictionaryComponent} from './page/dictionary/dictionary.component';
+import {TestResultComponent} from "./page/test/test-result.component";
 
 
 
@@ -17,7 +18,9 @@ const appRoutes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'saveword', component: WordSaverComponent },
   { path: 'test', component: TestComponent },
+  { path: 'test/results', component: TestResultComponent },
   { path: 'dictionary', component: DictionaryComponent },
+
 
 
   // otherwise redirect to home

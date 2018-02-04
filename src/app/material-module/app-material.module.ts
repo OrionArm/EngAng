@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import {
   MatButtonModule,
   MatCardModule,
-  MatCheckboxModule,
+  MatCheckboxModule, MatDialogModule,
   MatFormFieldModule,
   MatGridListModule,
   MatIconModule,
@@ -11,7 +11,7 @@ import {
   MatProgressSpinnerModule,
   MatRadioModule,
   MatSelectModule,
-  MatSidenavModule,
+  MatSidenavModule, MatSortModule, MatTableModule, MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
 
@@ -30,8 +30,11 @@ import {
     MatProgressSpinnerModule,
     MatRadioModule,
     MatSelectModule,
-    MatListModule
-
+    MatListModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatDialogModule,
 
   ],
   declarations: [],
@@ -48,7 +51,11 @@ import {
     MatProgressSpinnerModule,
     MatRadioModule,
     MatSelectModule,
-    MatListModule
+    MatListModule,
+    MatSortModule,
+    MatTableModule,
+    MatTabsModule,
+    MatDialogModule,
   ]
 })
 export class AppMaterialModule { }
@@ -70,7 +77,5 @@ export class AppMaterialModule { }
 //   MatSliderModule,
 //   MatSlideToggleModule,
 //   MatSnackBarModule,
-//   MatSortModule,
-//   MatTableModule,
-//   MatTabsModule,
+//
 //   MatTooltipModule,
