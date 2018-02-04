@@ -30,7 +30,7 @@ export class TestService {
     variant: []
   };
   private _testLevel: number = 0;
-  public totalLevel: number = 2;
+  public totalLevel: number = 20;
   dictionary: Observable<DataWordType[]>;
   questionnaireCollect: AngularFirestoreCollection<IAnswer>;
 
