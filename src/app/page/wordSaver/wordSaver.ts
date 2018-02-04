@@ -1,6 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormArray, FormControl, Validators} from '@angular/forms';
 import {DictionaryService} from '../../services/dictionary.service';
+import {Observable} from 'rxjs/Observable';
+import {AngularFirestore, AngularFirestoreCollection} from 'angularfire2/firestore';
+import {Router} from '@angular/router';
+interface DataWordType {
+  word: string;
+  translateWords: Array<string>;
+}
 
 @Component({
   selector: 'app-word-saver',
@@ -9,11 +16,12 @@ import {DictionaryService} from '../../services/dictionary.service';
 export class WordSaverComponent implements OnInit {
   alreadySubmitted: boolean = false;
   orderForm: FormGroup;
+  redirectUrl: string = 'dictionary';
 
-  // items: any = [];
-
-  constructor(public fb: FormBuilder, public dictionary: DictionaryService) {
-  }
+  constructor(public fb: FormBuilder,
+              public dictionaryService: DictionaryService,
+              private router: Router,
+              private afs: AngularFirestore) {}
 
   ngOnInit() {
     this.orderForm = this.fb.group({
@@ -21,12 +29,12 @@ export class WordSaverComponent implements OnInit {
       translate: ['', [Validators.required]],
       additionalTranslate: this.fb.array([])
     });
+
   }
 
 
   removeTranslate(index) {
      (<FormArray>this.orderForm.get('additionalTranslate')).removeAt(index);
-
   }
 
   addTranslate() {
@@ -35,11 +43,11 @@ export class WordSaverComponent implements OnInit {
   }
 
   saveWord() {
-    let fullTranslate: any = [];
+    const fullTranslate: any = [];
     this.alreadySubmitted = true;
     const additionalTranslate = this.orderForm.value.additionalTranslate;
     if (additionalTranslate.length === 0) {
-      fullTranslate = this.orderForm.value.translate;
+      fullTranslate.push(this.orderForm.value.translate);
     } else {
       fullTranslate[0] = this.orderForm.value.translate;
       const translateWords = _cleanArray(additionalTranslate);
@@ -50,7 +58,16 @@ export class WordSaverComponent implements OnInit {
       translateWords: fullTranslate
     };
 
-    this.dictionary.saveWord(wordAndTranslate);
+    // const wordAndTranslate = {
+    //   [this.orderForm.value.word]: fullTranslate
+    // };
+    // this.notes.subscribecribe( data => console.log( 'my observ', data ));
+
+    this.dictionaryService.saveWord(wordAndTranslate).then(
+      () => this.router.navigate([this.redirectUrl]),
+      (e) => alert(e)
+      );
+
 
     function _cleanArray(actual) {
       const newArray = [];
@@ -62,5 +79,6 @@ export class WordSaverComponent implements OnInit {
       return newArray;
     }
   }
+
 
 }

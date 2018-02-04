@@ -1,5 +1,6 @@
 import {Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {DictionaryService} from '../../services/dictionary.service';
+import {DataWordType, DictionaryService} from '../../services/dictionary.service';
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'app-dictionary',
@@ -8,10 +9,14 @@ import {DictionaryService} from '../../services/dictionary.service';
   encapsulation: ViewEncapsulation.None
 })
 export class DictionaryComponent implements OnInit {
+  public notes: Observable<DataWordType[]>;
 
-  constructor(public dictionary: DictionaryService) {}
+  constructor(public ds: DictionaryService) {
+
+  }
 
   ngOnInit() {
+    this.notes = this.ds.getDict();
   }
 
 

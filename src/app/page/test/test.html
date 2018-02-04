@@ -1,10 +1,31 @@
 <mat-card>
-    <mat-radio-group [(ngModel)]="translate">
-      <mat-radio-button *ngFor="let word of translateWords" [value]="word">
-        {{word}}
+
+  <button mat-raised-button color="primary"
+          *ngIf="testLevel == 0" (click)="startTest()"> Start test
+  </button>
+  <div *ngIf="testLevel != 0">{{ testLevel }} / {{ totalLevel }}
+
+    <!--<mat-radio-group [(ngModel)]="translate">-->
+      <!--<mat-radio-button *ngFor="let word of translateWords" [value]="word">-->
+        <!--{{word}}-->
+      <!--</mat-radio-button>-->
+    <!--</mat-radio-group>-->
+
+    <mat-radio-group>
+      <mat-radio-button *ngFor="let options of taskArray " [value]="options.translateWords">
+        {{options.translateWords}}
       </mat-radio-button>
     </mat-radio-group>
 
+
     <mat-divider></mat-divider>
     <div>Your pick: {{translate}}</div>
+    <button mat-raised-button color="primary"
+            (click)="nextLevel()"> OK
+    </button>
+    <button mat-raised-button color="primary"
+            (click)="getAnswer()"> Get answer
+    </button>
+  </div>
+
 </mat-card>

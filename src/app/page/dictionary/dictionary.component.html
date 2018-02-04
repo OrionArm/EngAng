@@ -1,3 +1,11 @@
-<p>
-  dictionary works!
-</p>
+Ваш словарь
+<mat-list>
+  <div *ngFor="let word of notes | async">
+  <mat-list-item>{{ word.word }}</mat-list-item>
+    <mat-list style="margin-left:30px;">
+      <app-word-dictionary *ngFor="let translateWords of word.translateWords;"
+                           word="{{ word.word }}" translate="{{ translateWords }}" >
+      </app-word-dictionary>
+    </mat-list>
+  </div>
+</mat-list>

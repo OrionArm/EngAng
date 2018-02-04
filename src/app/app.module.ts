@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-
+import { environment } from '../environments/environment';
 
 import {AppMaterialModule} from './material-module/app-material.module';
 import {AppComponent} from './app.component';
@@ -22,6 +22,11 @@ import {WordSaverComponent} from './page/wordSaver/wordSaver';
 import {DictionaryService} from './services/dictionary.service';
 import {TestComponent} from './page/test/test';
 import { DictionaryComponent } from './page/dictionary/dictionary.component';
+import {Ng2Webstorage} from 'ngx-webstorage';
+import {AngularFirestoreModule} from 'angularfire2/firestore';
+import {AngularFireModule} from 'angularfire2';
+import { WordDictionaryComponent } from './page/dictionary/word-dictionary.component';
+import {TestService} from './services/test-services';
 
 
 @NgModule({
@@ -33,7 +38,8 @@ import { DictionaryComponent } from './page/dictionary/dictionary.component';
     RegistrationComponent,
     WordSaverComponent,
     TestComponent,
-    DictionaryComponent
+    DictionaryComponent,
+    WordDictionaryComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +48,15 @@ import { DictionaryComponent } from './page/dictionary/dictionary.component';
     BrowserAnimationsModule,
     Routing,
     AppMaterialModule,
-    FormsModule
+    FormsModule,
+    Ng2Webstorage.forRoot({ prefix: 'dict', separator: '.', caseSensitive: false }),
+    // The forRoot method allows to configure the prefix, the separator and the caseSensitive option used by the library
+    // Default values:
+    // prefix: 'ng2-webstorage'
+    // separator: '|'
+    // caseSensitive: false
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFirestoreModule
   ],
   providers: [
     Config,
@@ -50,7 +64,8 @@ import { DictionaryComponent } from './page/dictionary/dictionary.component';
     AuthGuard,
     AuthenticationService,
     HttpService,
-    DictionaryService
+    DictionaryService,
+    TestService
   ],
   bootstrap: [AppComponent]
 })
